@@ -22,7 +22,7 @@
     <textarea id="consulta" name="consulta" placeholder="Escribe tu mensaje aquí..." rows="4"></textarea>
 
     <div class="form-buttons">
-      <button type="button" class="btn" onclick="insertarNuevoItem('menu-details');">Enviar</button>
+      <button type="button" class="btn" onclick="validarFormularioYRegistrar('menu-details');">Enviar</button>
       <button type="reset" class="btn cancel">Cancelar</button>
     </div>
   </form>

@@ -18,6 +18,58 @@ function cargarURL(url,contenedor,efectoDeCarga=true){
     });
 }
 
+function validarFormularioYRegistrar(contenedor) {
+    // Limpiar mensajes previos
+    limpiarMensajesDeError();
+    // Validar campos
+    const nombre = $("#nombre").val().trim();
+    const correo = $("#correo").val().trim();
+    const telefono = $("#telefono").val().trim();
+    const servicio = $("#servicio").val();
+    const consulta = $("#consulta").val().trim();
+    let esValido = true;
+    // Validación del campo nombre
+    if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,100}$/.test(nombre)) {
+        mostrarTextoDeError("El nombre debe contener solo letras y tener entre 3 y 100 caracteres.", "nombre");
+        esValido = false;
+    }
+    // Validación del campo correo
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(correo)) {
+        mostrarTextoDeError("Ingresa un correo electrónico válido.", "correo");
+        esValido = false;
+    }
+    // Validación del campo teléfono
+    if (!/^\d{9}$/.test(telefono)) {
+        mostrarTextoDeError("El teléfono debe contener exactamente 9 dígitos.", "telefono");
+        esValido = false;
+    }
+    // Validación del campo servicio
+    if (servicio === "" || servicio === null) {
+        mostrarTextoDeError("Selecciona un servicio.", "servicio");
+        esValido = false;
+    }
+    // Validación del campo consulta
+    if (consulta.length < 10 || consulta.length > 500) {
+        mostrarTextoDeError("La consulta debe tener entre 10 y 500 caracteres.", "consulta");
+        esValido = false;
+    }
+    // Si todo es válido, se procede con la inserción
+    if (esValido) {
+        insertarNuevoItem(contenedor);
+    }
+}
+
+function limpiarMensajesDeError() {
+    $(".error-message").remove();
+}
+
+function mostrarTextoDeError(mensaje, campoId) {
+    const input = $(`#${campoId}`);
+    if (input.next(".error-message").length === 0) {
+        input.after(`<div class="error-message error">${mensaje}</div>`);
+    }
+}
+
 
 function insertarNuevoItem(contenedor){
     //Obtener datos del formulario
@@ -51,6 +103,8 @@ function buscarItemPorCampo(tablaContenedor, mensajeContenedor) {
   let columna = $("#columna").val();
   let valor = $("#busqueda").val().trim();
   if (columna === "" || valor === "") {
+    // Limpiar el contenedor de mensajes
+      vaciarContenedor(tablaContenedor);
       mostrarMensajeDeError("Por favor, completa todos los campos", mensajeContenedor);
       return;
   }
