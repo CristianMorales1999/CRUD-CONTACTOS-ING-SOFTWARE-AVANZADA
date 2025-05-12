@@ -116,3 +116,69 @@ function mostrarLoader(milisegundos = 1000) {
   setTimeout(() => document.getElementById("loader").style.display = "none", milisegundos);
 
 }
+
+
+function cargarFormularioActualizar(contactoId) {
+  // Ocultar la tabla y mostrar el formulario
+  $("#actualizar-container").hide();
+  $("#formulario-actualizar").show();
+
+  // Cargar los datos del contacto
+  $.post("BD/buscarPorIdBD.php", { 'id': contactoId }, function(response){
+      let data = JSON.parse(response);
+      if (data.status === 'success') {
+          $("#contacto-id").val(data.contacto.id);
+          $("#nombre").val(data.contacto.nombre);
+          $("#email").val(data.contacto.email);
+          $("#telefono").val(data.contacto.telefono);
+          $("#servicio").val(data.contacto.servicio);
+          $("#consulta").val(data.contacto.consulta);
+      } else {
+          alert("Error al cargar el contacto.");
+          cancelarEdicion();
+      }
+  }).fail(function() {
+      alert("Error al cargar el contacto.");
+      cancelarEdicion();
+  });
+}
+
+function actualizarContacto() {
+  let id = $("#contacto-id").val();
+  let nombre = $("#nombre").val().trim();
+  let email = $("#email").val().trim();
+  let telefono = $("#telefono").val().trim();
+  let servicio = $("#servicio").val();
+  let consulta = $("#consulta").val().trim();
+
+
+  if (nombre === "" || email === "" || telefono === "" || servicio === "" || consulta === "") {
+      alert("Por favor, completa todos los campos.");
+      return;
+  }
+
+  $.post("BD/actualizarPorIdBD.php", {
+      'id': id,
+      'nombre': nombre,
+      'email': email,
+      'telefono': telefono,
+      'servicio': servicio,
+      'consulta': consulta
+  }, function(response){
+      let data = JSON.parse(response);
+      if (data.status === 'success') {
+        mostrarMensajeDeExito(data.message,'formulario-actualizar'); 
+        setTimeout(function(){ cargarURL('actualizar.php','menu-details',false);}, 2000);
+      } else {
+          alert("Error al actualizar el contacto.");
+      }
+  }).fail(function() {
+      alert("Error al actualizar el contacto.");
+  });
+}
+
+function cancelarEdicion() {
+  // Ocultar el formulario y mostrar la tabla
+  $("#formulario-actualizar").hide();
+  $("#actualizar-container").show();
+}

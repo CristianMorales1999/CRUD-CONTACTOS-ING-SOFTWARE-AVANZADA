@@ -43,6 +43,7 @@ if ($stmt->execute()) {
         $tabla .= "<th>Teléfono</th>";
         $tabla .= "<th>Servicio</th>";
         $tabla .= "<th>Consulta</th>";
+        $tabla .= "<th>Acción</th>";
         $tabla .= "</tr>";
         $tabla .= "</thead>";
         $tabla .= "<tbody>";
@@ -55,6 +56,9 @@ if ($stmt->execute()) {
             $tabla .= "<td>" . $fila['telefono'] . "</td>";
             $tabla .= "<td>" . $fila['servicio'] . "</td>";
             $tabla .= "<td>" . $fila['consulta'] . "</td>";
+            $tabla .= "<td>".
+                "<button class='btn actualizar-btn' onclick='cargarFormularioActualizar(" . $fila['id'] . ")'>Actualizar</button>" .
+                "</td>";
             $tabla .= "</tr>";
         }
         $tabla .= "</tbody>";

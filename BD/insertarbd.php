@@ -27,7 +27,7 @@ if ($stmt->execute()) {
     echo "<script>mostrarMensajeDeExito('Registro insertado de manera exitosa!','menu-details'); setTimeout(function(){ cargarURL('listar.php','menu-details',false);}, 2000);</script>";
     exit();
 } else {
-    echo "<script>mostrarMensajeDeExito('Error al insertar el registro: '.$stmt->error','contenedor');</script>";
+    echo "<script>mostrarMensajeDeError('Error al insertar el registro: '.$stmt->error','contenedor');</script>";
     return;
 }
 ?>

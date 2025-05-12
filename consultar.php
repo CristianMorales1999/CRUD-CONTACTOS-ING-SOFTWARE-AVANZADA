@@ -20,8 +20,3 @@
   <table id="tabla"></table>
 </div>
 
-<?php
-// Incluir el contenido html de archivo de listar.php
-require_once 'listar.php';
-?>
-
