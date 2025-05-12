@@ -18,7 +18,7 @@ $stmt->close();
 $conexion->close();
 ?>
 
-<div id="actualizar-container" class="container">
+<div id="container" class="container">
   <h2>Actualizar Contacto</h2>
   <table>
     <thead>
@@ -56,34 +56,9 @@ $conexion->close();
   </table>
 </div>
 
-<div id="formulario-actualizar" class="container" style="display: none;">
-  <h2>Actualizar Contacto</h2>
-  <form class="form" id="formulario-contacto">
-    <input type="hidden" id="contacto-id">
-
-    <label>Nombre</label>
-    <input type="text" id="nombre" required>
-
-    <label>Email</label>
-    <input type="email" id="email" required>
-
-    <label>Teléfono</label>
-    <input type="tel" id="telefono" required>
-
-    <label>Servicio</label>
-    <select id="servicio">
-      <option value="Teléfono">Teléfono</option>
-      <option value="Información General">Información General</option>
-      <option value="Soporte Técnico">Soporte Técnico</option>
-      <option value="Consultoría">Consultoría</option>
-    </select>
-
-    <label>Consulta</label>
-    <textarea id="consulta" rows="4"></textarea>
-
-    <div class="form-buttons">
-      <button type="button" class="btn" onclick="actualizarContacto()">Actualizar</button>
-      <button type="button" class="btn cancel" onclick="cancelarEdicion()">Cancelar</button>
-    </div>
-  </form>
-</div>
+<?php
+  //Variable de archivo padre de donde fué llamado
+  $urlDeRetorno="actualizar.php";
+  //Incluir archivo de formularioActualizar.php
+  require_once "formularioActualizar.php";
+?>

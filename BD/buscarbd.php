@@ -56,9 +56,9 @@ if ($stmt->execute()) {
             $tabla .= "<td>" . $fila['telefono'] . "</td>";
             $tabla .= "<td>" . $fila['servicio'] . "</td>";
             $tabla .= "<td>" . $fila['consulta'] . "</td>";
-            $tabla .= "<td>".
-                "<button class='btn actualizar-btn' onclick='cargarFormularioActualizar(" . $fila['id'] . ")'>Actualizar</button>" .
-                "</td>";
+            $tabla .= "<td>
+                <button class='btn actualizar-btn' onclick=\"cargarFormularioActualizar(" . $fila['id'] . ", 'container')\">Actualizar</button>
+           </td>";
             $tabla .= "</tr>";
         }
         $tabla .= "</tbody>";

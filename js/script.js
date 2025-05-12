@@ -29,6 +29,7 @@ function insertarNuevoItem(contenedor){
 
     if (nombre === "" || correo === "" || telefono === "" || servicio === "" || consulta === "") {// Mostrar mensaje de error
       mostrarMensajeDeError("Por favor, completa todos los campos", contenedor);
+      setTimeout(function(){ cargarURL('registrar.php','menu-details',false);}, 2000);
       return;
     }
   // Realizar la petición AJAX
@@ -49,15 +50,12 @@ function buscarItemPorCampo(tablaContenedor, mensajeContenedor) {
   // Obtener columna y valor a buscar
   let columna = $("#columna").val();
   let valor = $("#busqueda").val().trim();
-
   if (columna === "" || valor === "") {
       mostrarMensajeDeError("Por favor, completa todos los campos", mensajeContenedor);
       return;
   }
-
   // Limpiar tabla antes de la nueva búsqueda
   vaciarContenedor(tablaContenedor);
-
   // Realizar la petición AJAX
   $.post("BD/buscarbd.php", { 
       'columna':columna, 
@@ -65,14 +63,11 @@ function buscarItemPorCampo(tablaContenedor, mensajeContenedor) {
   }, function(response){
       // Parsear la respuesta JSON
       let data = JSON.parse(response);
-
       // Limpiar el contenedor de mensajes
       vaciarContenedor(mensajeContenedor);
-      
       if (data.status === 'success') {
           // Mostrar el mensaje de éxito brevemente
           mostrarMensajeDeExito(data.message, mensajeContenedor);
-
           // Mostrar la tabla después de que el mensaje desaparezca
           setTimeout(() => {
               vaciarContenedor(mensajeContenedor);  // Quitar el mensaje
@@ -117,11 +112,10 @@ function mostrarLoader(milisegundos = 1000) {
 
 }
 
-
-function cargarFormularioActualizar(contactoId) {
+function cargarFormularioActualizar(contactoId, contenedorAOcultar="container", contenedorAMostrar="formulario-actualizar") {
   // Ocultar la tabla y mostrar el formulario
-  $("#actualizar-container").hide();
-  $("#formulario-actualizar").show();
+  $("#"+contenedorAOcultar).hide();
+  $("#"+contenedorAMostrar).show();
 
   // Cargar los datos del contacto
   $.post("BD/buscarPorIdBD.php", { 'id': contactoId }, function(response){
@@ -135,15 +129,15 @@ function cargarFormularioActualizar(contactoId) {
           $("#consulta").val(data.contacto.consulta);
       } else {
           alert("Error al cargar el contacto.");
-          cancelarEdicion();
+          cancelarEdicion(contenedorAMostrar,contenedorAOcultar);
       }
   }).fail(function() {
       alert("Error al cargar el contacto.");
-      cancelarEdicion();
+      cancelarEdicion(contenedorAMostrar,contenedorAOcultar);
   });
 }
 
-function actualizarContacto() {
+function actualizarContacto(urlDeRetorno="actualizar.php") {
   let id = $("#contacto-id").val();
   let nombre = $("#nombre").val().trim();
   let email = $("#email").val().trim();
@@ -168,17 +162,17 @@ function actualizarContacto() {
       let data = JSON.parse(response);
       if (data.status === 'success') {
         mostrarMensajeDeExito(data.message,'formulario-actualizar'); 
-        setTimeout(function(){ cargarURL('actualizar.php','menu-details',false);}, 2000);
       } else {
-          alert("Error al actualizar el contacto.");
+          mostrarMensajeDeError(data.message,'formulario-actualizar');
       }
+      setTimeout(function(){ cargarURL(urlDeRetorno,'menu-details',false);}, 2000);
   }).fail(function() {
       alert("Error al actualizar el contacto.");
   });
 }
 
-function cancelarEdicion() {
+function cancelarEdicion(contenedorAOcultar="formulario-actualizar", contenedorAMostrar="actualizar-container") {
   // Ocultar el formulario y mostrar la tabla
-  $("#formulario-actualizar").hide();
-  $("#actualizar-container").show();
+  $("#"+contenedorAOcultar).hide();
+  $("#"+contenedorAMostrar).show();
 }

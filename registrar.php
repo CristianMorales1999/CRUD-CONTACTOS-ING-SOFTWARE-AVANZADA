@@ -15,7 +15,7 @@
       <option value="" disabled selected>Seleccionar...</option>
       <option value="Informacion General">Información General</option>
       <option value="TI">TI</option>
-      <option value="Telefono">Teléfono</option>
+      <option value="Teléfono">Teléfono</option>
     </select>
 
     <label>Consulta</label>

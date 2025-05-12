@@ -1,4 +1,4 @@
-<div class="container">
+<div id="container" class="container" >
   <h2>Consultar Contactos</h2>
   <form class="form">
     <label>Buscar por:</label>
@@ -19,4 +19,11 @@
   <!-- Contenedor para los resultados -->
   <table id="tabla"></table>
 </div>
+
+<?php
+  //Variable de archivo padre de donde fué llamado
+  $urlDeRetorno="listar.php";
+  //Incluir archivo de formularioActualizar.php
+  require_once "formularioActualizar.php";
+?>
 
