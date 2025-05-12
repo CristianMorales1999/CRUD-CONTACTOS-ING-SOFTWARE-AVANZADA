@@ -176,3 +176,24 @@ function cancelarEdicion(contenedorAOcultar="formulario-actualizar", contenedorA
   $("#"+contenedorAOcultar).hide();
   $("#"+contenedorAMostrar).show();
 }
+
+function eliminarItemPorId(id, urlDeRetorno="eliminar.php"){
+  // Validar que el ID sea mayor a cero y que el usuario confirme la eliminación
+  if (id <= 0 || !confirm("¿Estás seguro de que deseas eliminar este contacto?")) {
+      return;
+  }
+  mostrarLoader(300); 
+  $.post("BD/eliminarPorIdBD.php", {
+      'id': id,
+  }, function(response){
+      let data = JSON.parse(response);
+      if (data.status === 'success') {
+        mostrarMensajeDeExito(data.message,'container'); 
+      } else {
+          mostrarMensajeDeError(data.message,'container');
+      }
+      setTimeout(function(){ mostrarLoader(300); cargarURL(urlDeRetorno,'menu-details',false);}, 2000);
+  }).fail(function() {
+      alert("Error al eliminar el contacto.");
+  });
+}

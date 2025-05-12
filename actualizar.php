@@ -1,21 +1,6 @@
 <?php
-// Incluir el archivo de conexión a la base de datos
-require_once 'BD/conexion.php';
-// Conectar a la base de datos
-$conexion = conectarDB('almacen');
-
-// Obtener todos los registros para la tabla inicial
-$sql = "SELECT * FROM contactos ORDER BY id ASC";
-$stmt = $conexion->prepare($sql);
-$contactos = [];
-if ($stmt->execute()) {
-  $result = $stmt->get_result();
-  while ($row = $result->fetch_assoc()) {
-    $contactos[] = $row;
-  }
-}
-$stmt->close();
-$conexion->close();
+  // Incluir el archivo de conexión a la base de datos 
+  require_once 'BD/obtenerTodosLosRegistrosBD.php';
 ?>
 
 <div id="container" class="container">
@@ -33,20 +18,20 @@ $conexion->close();
       </tr>
     </thead>
     <tbody>
-      <?php if (count($contactos) > 0): ?>
-        <?php foreach ($contactos as $contacto): ?>
+      <?php if ($resultado->num_rows > 0): ?>
+        <?php while ($row = $resultado->fetch_assoc()): ?>
           <tr>
-            <td><?= $contacto['id'] ?></td>
-            <td><?= $contacto['nombre'] ?></td>
-            <td><?= $contacto['email'] ?></td>
-            <td><?= $contacto['telefono'] ?></td>
-            <td><?= $contacto['servicio'] ?></td>
-            <td><?= $contacto['consulta'] ?></td>
+            <td><?= $row['id'] ?></td>
+            <td><?= $row['nombre'] ?></td>
+            <td><?= $row['email'] ?></td>
+            <td><?= $row['telefono'] ?></td>
+            <td><?= $row['servicio'] ?></td>
+            <td><?= $row['consulta'] ?></td>
             <td>
-              <button class="btn actualizar-btn" onclick="cargarFormularioActualizar(<?= $contacto['id'] ?>)">Actualizar</button>
+              <button class="btn actualizar-btn" onclick="cargarFormularioActualizar(<?= $row['id'] ?>)">Actualizar</button>
             </td>
           </tr>
-        <?php endforeach; ?>
+        <?php endwhile; ?>
       <?php else: ?>
         <tr>
           <td colspan="7">No hay registros disponibles</td>
