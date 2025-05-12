@@ -13,7 +13,7 @@
     <label>Servicio</label>
     <select id="servicio" name="servicio" required>
       <option value="" disabled selected>Seleccionar...</option>
-      <option value="Informacion General">Información General</option>
+      <option value="Información General">Información General</option>
       <option value="TI">TI</option>
       <option value="Teléfono">Teléfono</option>
     </select>

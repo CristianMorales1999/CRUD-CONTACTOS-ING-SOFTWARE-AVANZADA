@@ -18,7 +18,7 @@ function cargarURL(url,contenedor,efectoDeCarga=true){
     });
 }
 
-function validarFormularioYRegistrar(contenedor) {
+function validarFormularioYRegistrar(contenedorOrUrlDeRetorno, accion="insert") {
     // Limpiar mensajes previos
     limpiarMensajesDeError();
     // Validar campos
@@ -55,7 +55,12 @@ function validarFormularioYRegistrar(contenedor) {
     }
     // Si todo es válido, se procede con la inserción
     if (esValido) {
-        insertarNuevoItem(contenedor);
+      if(accion=="insert"){
+        insertarNuevoItem(contenedorOrUrlDeRetorno);//Contenedor
+      }
+      else if(accion=="update"){
+        actualizarContacto(contenedorOrUrlDeRetorno);//Url de retorno
+      }
     }
 }
 
@@ -177,7 +182,7 @@ function cargarFormularioActualizar(contactoId, contenedorAOcultar="container", 
       if (data.status === 'success') {
           $("#contacto-id").val(data.contacto.id);
           $("#nombre").val(data.contacto.nombre);
-          $("#email").val(data.contacto.email);
+          $("#correo").val(data.contacto.email);
           $("#telefono").val(data.contacto.telefono);
           $("#servicio").val(data.contacto.servicio);
           $("#consulta").val(data.contacto.consulta);
@@ -191,10 +196,12 @@ function cargarFormularioActualizar(contactoId, contenedorAOcultar="container", 
   });
 }
 
+
+
 function actualizarContacto(urlDeRetorno="actualizar.php") {
   let id = $("#contacto-id").val();
   let nombre = $("#nombre").val().trim();
-  let email = $("#email").val().trim();
+  let email = $("#correo").val().trim();
   let telefono = $("#telefono").val().trim();
   let servicio = $("#servicio").val();
   let consulta = $("#consulta").val().trim();
