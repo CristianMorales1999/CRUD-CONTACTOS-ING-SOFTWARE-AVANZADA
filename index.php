@@ -19,14 +19,13 @@
         <h1>MENÚ DE OPCIONES PARA CONTACTO</h1>
     </div>
     <div class="menu-options">
-    
-        <a href="#" class="menu-button" onclick="cargarURL('registrar.php','menu-details')">Ingreso</a>
-        <a href="#" class="menu-button" onclick="cargarURL('listar.php','menu-details')">Listar</a>
-        <a href="#" class="menu-button" onclick="cargarURL('consultar.php','menu-details')">Consultar</a>
-        <a href="#" class="menu-button" onclick="cargarURL('actualizar.php','menu-details')">Actualizar</a>
-        <a href="#" class="menu-button" onclick="cargarURL('eliminar.php','menu-details')">Eliminar</a>
-
+        <a href="#" id="btn-ingreso" class="menu-button" onclick="cargarURL('registrar.php','menu-details'); setActiveMenu('btn-ingreso');">Ingreso</a>
+        <a href="#" id="btn-listar" class="menu-button" onclick="cargarURL('listar.php','menu-details'); setActiveMenu('btn-listar');">Listar</a>
+        <a href="#" id="btn-consultar" class="menu-button" onclick="cargarURL('consultar.php','menu-details'); setActiveMenu('btn-consultar');">Consultar</a>
+        <a href="#" id="btn-actualizar" class="menu-button" onclick="cargarURL('actualizar.php','menu-details'); setActiveMenu('btn-actualizar');">Actualizar</a>
+        <a href="#" id="btn-eliminar" class="menu-button" onclick="cargarURL('eliminar.php','menu-details'); setActiveMenu('btn-eliminar');">Eliminar</a>
     </div>
+
     <div id="menu-details"></div><!-- Contenedor para cargar el contenido de las opciones -->
 
     <!-- Loader -->

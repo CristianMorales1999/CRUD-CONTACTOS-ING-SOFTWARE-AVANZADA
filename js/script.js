@@ -1,6 +1,12 @@
 
-function cargarURL(url,contenedor,efectoDeCarga=true){ 
-  
+function setActiveMenu(buttonId) {
+    // Remover la clase activa de todos los botones
+    $(".menu-button").removeClass("active");   
+    // Añadir la clase activa al botón actual
+    $(`#${buttonId}`).addClass("active");
+}
+
+function cargarURL(url,contenedor,efectoDeCarga=true){   
   // Esperar n minilisegundos antes de mostrar el loader
   if(efectoDeCarga){
     mostrarLoader(300); 

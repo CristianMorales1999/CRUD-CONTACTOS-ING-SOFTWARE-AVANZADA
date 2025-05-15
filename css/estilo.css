@@ -51,3 +51,9 @@ body {
       flex: 1 1 100%;
     }
   }
+
+.menu-button.active {
+    background-color: #b30000; /* Color más oscuro para resaltar */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    color: #fff;
+}
